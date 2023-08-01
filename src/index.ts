@@ -1,14 +1,3 @@
-// import {init, exit} from "./myPackage"
-
-// console.log(init(
-//     {
-//         debug: "abc",
-//         url: "abc"
-//     }
-// ))
-
-// console.log(exit(1))
-
 import crypto from "crypto"
 
 interface BlockShape {
@@ -46,6 +35,7 @@ class Blockchain {
         this.block.push(newBlock);
     }
     public getBlock(){
+        // this.block을 return하는 경우 외부에서 내부 블록 프로퍼티에 접근할 수 있는 이슈 발생
         return [...this.block];
     }
 }
@@ -55,6 +45,7 @@ blockchain.addBlock("First Block");
 blockchain.addBlock("Second Block");
 blockchain.addBlock("Third Block");
 
+// [...this.block] 전개 연산자로 수정 후 blockchain 프로퍼티에 값이 변경되지 않는다.
 blockchain.getBlock().push(new Block("XXX", 111, "HACKED"));
 
 console.log(blockchain.getBlock());
